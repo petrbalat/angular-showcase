@@ -1,5 +1,6 @@
 import {AfterViewInit, Component, forwardRef, Input, OnInit} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
+import {delay} from "../../lib/async.utils";
 
 @Component({
   selector: 'ngs-adresa [formControlName][novy]',
@@ -86,7 +87,8 @@ export class AdresaComponent implements ControlValueAccessor, OnInit {
     this.model = value;
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    await delay(200);
     if (this.novy) {
       this.onChange({
         ulice: 'Na Pankráci',
