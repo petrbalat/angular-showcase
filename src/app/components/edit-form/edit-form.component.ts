@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
+import {AdresaComponent} from "../adresa/adresa.component";
 
 @Component({
   selector: 'app-edit-form',
@@ -34,8 +35,10 @@ export class EditFormComponent implements OnInit {
         }
       })
     } else {
+      //norý režim
       this.fg.reset({
         jmeno: `Petr`,
+        adresa: AdresaComponent.newModel()
       })
     }
 

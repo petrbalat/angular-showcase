@@ -1,11 +1,10 @@
-import {AfterViewInit, Component, forwardRef, Input, OnInit} from '@angular/core';
+import {Component, forwardRef, Input, OnInit} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
-import {delay} from "../../lib/async.utils";
 
 @Component({
-  selector: 'ngs-adresa [formControlName][novy]',
+  selector: 'ngs-adresa [formControlName]',
   template: `
-    <div [title]="novy ? 'nový' : 'editace'">
+    <div>
       <div class="control">
         <label>
           ulice
@@ -49,9 +48,6 @@ export class AdresaComponent implements ControlValueAccessor, OnInit {
   @Input()
   formControlName!: string;
 
-  @Input()
-  novy!: boolean;
-
 
   constructor() {
   }
@@ -87,15 +83,14 @@ export class AdresaComponent implements ControlValueAccessor, OnInit {
     this.model = value;
   }
 
-  async ngOnInit() {
-    await delay(200);
-    if (this.novy) {
-      this.onChange({
-        ulice: 'Na Pankráci',
-        mesto: 'Praha'
-      })
-    }
+  ngOnInit() {
   }
 
+  static newModel() {
+    return {
+      ulice: 'Na Pankráci',
+      mesto: 'Praha'
+    };
+  }
 
 }
