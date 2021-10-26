@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
 import {AdresaComponent} from "../adresa/adresa.component";
+import {map} from "rxjs/operators";
 
 @Component({
   selector: 'app-edit-form',
@@ -18,23 +19,20 @@ export class EditFormComponent implements OnInit {
       jmeno: [],
       prijmeni: [],
       adresa: [],
-    })
+    });
+
+
+    //ignore unsubscribe :-)
+    route.data
+      .pipe(
+        map(it => it.osoba)
+      )
+      .subscribe(model => this.fg.reset(model))
   }
 
   ngOnInit(): void {
-    //ignore unsubscribe :-)
-
     const id = this.route.snapshot.params.id;
-    if (id) {
-      this.fg.reset({
-        id,
-        jmeno: `Uživatel ${id}`,
-        adresa: {
-          ulice: `Test ${id}`,
-          psc: `${id}${id}${id}${id}${id}`
-        }
-      })
-    } else {
+    if (!id) {
       //norý režim
       this.fg.reset({
         jmeno: `Petr`,
