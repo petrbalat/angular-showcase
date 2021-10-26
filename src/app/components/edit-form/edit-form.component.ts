@@ -17,7 +17,11 @@ export class EditFormComponent implements OnInit {
       id: [],
       jmeno: [],
       prijmeni: [],
-      adresa: [],
+      adresa: builder.group({
+        ulice: [],
+        mesto: [],
+        psc: [],
+      }),
     })
   }
 
@@ -28,7 +32,11 @@ export class EditFormComponent implements OnInit {
       filter(it => !!it),
       map(id => ({
         id,
-        jmeno: `Uživatel ${id}`
+        jmeno: `Uživatel ${id}`,
+        adresa: {
+          ulice: `Test ${id}`,
+          psc: `${id}${id}${id}${id}${id}`
+        }
       }))
     ).subscribe(person => {
       this.fg.reset(person)

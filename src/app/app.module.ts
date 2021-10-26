@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { IndexComponent } from './components/index/index.component';
 import { EditFormComponent } from './components/edit-form/edit-form.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import { AdresaComponent } from './components/adresa/adresa.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     IndexComponent,
-    EditFormComponent
+    EditFormComponent,
+    AdresaComponent
   ],
   imports: [
     BrowserModule,
