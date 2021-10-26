@@ -1,1 +1,27 @@
-<p>edit-form works!</p>
+<form [formGroup]="fg">
+
+  <h1>Editace uživatele {{fg.value.id}}</h1>
+
+  <div class="control">
+    <label>
+      jmeno
+    </label>
+    <input formControlName="jmeno" name="jmeno">
+  </div>
+
+  <div class="control">
+    <label>
+      prijmeni
+    </label>
+    <input formControlName="prijmeni" name="prijmeni">
+  </div>
+
+  <div class="control">
+    <label>
+      adresa
+    </label>
+    <input formControlName="adresa" name="adresa">
+  </div>
+
+
+</form>
