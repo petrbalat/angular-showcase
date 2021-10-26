@@ -1,30 +1,37 @@
-import {Component, forwardRef, Input, OnInit} from '@angular/core';
-import {AbstractControl, ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR} from "@angular/forms";
+import {AfterViewInit, Component, forwardRef, Input, OnInit} from '@angular/core';
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 
 @Component({
-  selector: 'ngs-adresa [formControlName]',
+  selector: 'ngs-adresa [formControlName][novy]',
   template: `
-    <div>
+    <div [title]="novy ? 'nový' : 'editace'">
       <div class="control">
         <label>
           ulice
         </label>
-        <input [value]="model?.ulice ?? ''" (change)="onChange({ulice: $any($event.target).value })" name="ulice" [disabled]="disabled">
+        <input [value]="model?.ulice ?? ''" (change)="onChange({ulice: $any($event.target).value })"
+               name="ulice" [disabled]="disabled">
       </div>
 
       <div class="control">
         <label>
           mesto
         </label>
-        <input [value]="model?.mesto ?? ''" (change)="onChange({mesto: $any($event.target).value})" name="mesto" [disabled]="disabled">
+        <input [value]="model?.mesto ?? ''" (change)="onChange({mesto: $any($event.target).value})"
+               name="mesto" [disabled]="disabled">
       </div>
 
       <div class="control">
         <label>
           psc
         </label>
-        <input [value]="model?.psc ?? ''" (change)="onChange({psc: $any($event.target).value})" name="psc" [disabled]="disabled">
+        <input [value]="model?.psc ?? ''" (change)="onChange({psc: $any($event.target).value})"
+               name="psc" [disabled]="disabled">
       </div>
+
+      <p>
+        {{model |json}}
+      </p>
     </div>
   `,
   styleUrls: ['./adresa.component.sass'],
@@ -36,10 +43,13 @@ import {AbstractControl, ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR} f
     }
   ]
 })
-export class AdresaComponent implements OnInit, ControlValueAccessor {
+export class AdresaComponent implements ControlValueAccessor, OnInit {
 
   @Input()
   formControlName!: string;
+
+  @Input()
+  novy!: boolean;
 
 
   constructor() {
@@ -72,12 +82,18 @@ export class AdresaComponent implements OnInit, ControlValueAccessor {
     this.disabled = isDisabled;
   }
 
-  writeValue(val: any): void {
-    this.model = val;
+  writeValue(value: any): void {
+    this.model = value;
   }
 
   ngOnInit(): void {
-
+    if (this.novy) {
+      this.onChange({
+        ulice: 'Na Pankráci',
+        mesto: 'Praha'
+      })
+    }
   }
+
 
 }

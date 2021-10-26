@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
-import {filter, map} from "rxjs/operators";
 
 @Component({
   selector: 'app-edit-form',
@@ -23,20 +22,22 @@ export class EditFormComponent implements OnInit {
 
   ngOnInit(): void {
     //ignore unsubscribe :-)
-    this.route.params.pipe(
-      map(it => it.id),
-      filter(it => !!it),
-      map(id => ({
+
+    const id = this.route.snapshot.params.id;
+    if (id) {
+      this.fg.reset({
         id,
         jmeno: `Uživatel ${id}`,
         adresa: {
           ulice: `Test ${id}`,
           psc: `${id}${id}${id}${id}${id}`
         }
-      }))
-    ).subscribe(person => {
-      this.fg.reset(person)
-    })
+      })
+    } else {
+      this.fg.reset({
+        jmeno: `Petr`,
+      })
+    }
 
   }
 
