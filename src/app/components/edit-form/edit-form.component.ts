@@ -17,11 +17,7 @@ export class EditFormComponent implements OnInit {
       id: [],
       jmeno: [],
       prijmeni: [],
-      adresa: builder.group({
-        ulice: [],
-        mesto: [],
-        psc: [],
-      }),
+      adresa: [],
     })
   }
 
